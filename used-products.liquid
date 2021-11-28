@@ -1,0 +1,80 @@
+<div class="gebruikte-producten">
+  <h2>Products used in the project</h2>  
+  
+<div class="producten">
+{% for tag in article.tags %}
+  {% if tag contains '112233' %}
+    {% for product in collections.all.products %}
+      {% if product.tags contains "112233" %}
+		<a href="{{ product.url | within: collection }}" class="product-card">
+          <img src="{{ product.featured_image.src | img_url: '1024x' }}" alt="">
+          <div class="product-card__name">{{ product.title }}</div>
+          <p>
+            {%- if product.price_varies -%}
+              <span class="visuallyhidden">Starting at</span>
+              {{ product.price_min | money_without_trailing_zeros }}
+              
+            {%- else -%}
+              {{ product.price | money_without_trailing_zeros }}
+            {%- endif -%}
+          </p>
+          <p>
+            <span class="visuallyhidden">by</span>
+            {{ product.vendor }}
+          </p>
+        </a>
+        
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endfor %}
+</div>
+</div>
+
+<style>
+  .product-card {
+    box-sizing: border-box;
+    float: left;
+    min-height: 1em;
+    padding-left: 2em;
+    vertical-align: top;
+    width: 25%;
+  }
+
+  .visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    white-space: nowrap;
+  }
+   .gebruikte-producten {
+    margin-top: 40px;
+  }
+  @media only screen and (min-width: 750px) {
+  .producten {
+    display: flex;
+
+  }
+  .producten a {
+        padding: 20px;
+    margin: 10px;
+  }
+  }
+  @media only screen and (max-width: 750px) {
+  .producten {
+    display: block;
+
+  }
+  .producten a {
+        padding: 20px;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  }
+  
+</style>
