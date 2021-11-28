@@ -3,9 +3,9 @@
   
 <div class="producten">
 {% for tag in article.tags %}
-  {% if tag contains '112233' %}
+  {% if tag contains 'your-tag' %}
     {% for product in collections.all.products %}
-      {% if product.tags contains "112233" %}
+      {% if product.tags contains "your-tag" %}
 		<a href="{{ product.url | within: collection }}" class="product-card">
           <img src="{{ product.featured_image.src | img_url: '1024x' }}" alt="">
           <div class="product-card__name">{{ product.title }}</div>
