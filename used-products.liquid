@@ -1,36 +1,3 @@
-<div class="gebruikte-producten">
-  <h2>Products used in the project</h2>  
-  
-<div class="producten">
-{% for tag in article.tags %}
-  {% if tag contains 'your-tag' %}
-    {% for product in collections.all.products %}
-      {% if product.tags contains "your-tag" %}
-		<a href="{{ product.url | within: collection }}" class="product-card">
-          <img src="{{ product.featured_image.src | img_url: '1024x' }}" alt="">
-          <div class="product-card__name">{{ product.title }}</div>
-          <p>
-            {%- if product.price_varies -%}
-              <span class="visuallyhidden">Starting at</span>
-              {{ product.price_min | money_without_trailing_zeros }}
-              
-            {%- else -%}
-              {{ product.price | money_without_trailing_zeros }}
-            {%- endif -%}
-          </p>
-          <p>
-            <span class="visuallyhidden">by</span>
-            {{ product.vendor }}
-          </p>
-        </a>
-        
-      {% endif %}
-    {% endfor %}
-  {% endif %}
-{% endfor %}
-</div>
-</div>
-
 <style>
   .product-card {
     box-sizing: border-box;
@@ -78,3 +45,36 @@
   }
   
 </style>
+
+<div class="gebruikte-producten">
+<h2>Producten gebruikt voor dit project</h2>
+
+<div class="producten">
+  
+    {% for product in collections.all.products %}
+  
+  	{% assign usedproduct = article.title %}
+  
+      {% if product.tags contains usedproduct %}
+		<a href="{{ product.url | within: collection }}" class="product-card">
+          <img src="{{ product.featured_image.src | img_url: '1024x' }}" alt="">
+          <div class="product-card__name">{{ product.title }}</div>
+          <p>
+            {%- if product.price_varies -%}
+              <span class="visuallyhidden">Starting at</span>
+              {{ product.price_min | money_without_trailing_zeros }}
+              
+            {%- else -%}
+              {{ product.price | money_without_trailing_zeros }}
+            {%- endif -%}
+          </p>
+          <p>
+            <span class="visuallyhidden">by</span>
+            {{ product.vendor }}
+          </p>
+        </a>
+        
+  {% endif %}
+{% endfor %}
+</div>
+</div>
